@@ -1,0 +1,35 @@
+function [globalMatrix, globalVector] = buildSystem(model)
+% Build FE system including domain and natural BC contributions
+
+[globalMatrix, globalVector] = assembleSystem(model);
+
+if ~isfield(model,'fieldNames')
+    error(['model.fieldNames must be defined, e.g. ', ...
+           '{''T''}, {''ux'',''uy''}, {''ux'',''uy'',''T''}, or {''ux'',''uy'',''phi''}.']);
+end
+
+fieldNames = model.fieldNames;
+
+if isequal(fieldNames, {'T'})
+    [bcMatrix, bcVector] = assembleNaturalBC_Thermal(model);
+    globalMatrix = globalMatrix + bcMatrix;
+    globalVector = globalVector + bcVector;
+
+elseif isequal(fieldNames, {'ux','uy'})
+    bcVector = assembleNaturalBC_Mech(model);
+    globalVector = globalVector + bcVector;
+
+elseif isequal(fieldNames, {'ux','uy','T'})
+    [bcMatrix, bcVector] = assembleNaturalBC_ThermoMech(model);
+    globalMatrix = globalMatrix + bcMatrix;
+    globalVector = globalVector + bcVector;
+
+elseif isequal(fieldNames, {'ux','uy','phi'})
+    bcVector = assembleNaturalBC_Piezo(model);
+    globalVector = globalVector + bcVector;
+
+else
+    error('Unsupported model.fieldNames definition.');
+end
+
+end
