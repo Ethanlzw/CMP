@@ -31,13 +31,14 @@ for igp = 1:4
     t = gaussPts(igp,2);
     w = weights(igp);
     
-    N = 0.25 * [(1-s)*(1-t);
-                (1+s)*(1-t);
-                (1+s)*(1+t);
-                (1-s)*(1+t)];
+    N = 0.25 * [(1+s)*(1+t);
+                (1-s)*(1+t);
+                (1-s)*(1-t);
+                (1+s)*(1-t)];
 
-    dNds = 0.25 * [-(1-t),  (1-t),  (1+t), -(1+t)];
-    dNdt = 0.25 * [-(1-s), -(1+s),  (1+s),  (1-s)];
+    dNds = 0.25 * [(1+t); -(1+t); -(1-t);  (1-t)];
+    dNdt = 0.25 * [(1+s);  (1-s); -(1-s); -(1+s)];
+    
 %% Complete the following section
     J = [dNds'*x, dNds'*y;
          dNdt'*x, dNdt'*y];
