@@ -64,8 +64,8 @@ for igp = 1:4
     dNdt = 0.25 * [(1+s);  (1-s); -(1-s); -(1+s)];
 
     % Jacobian
-    J = [dNds * x, dNds * y;
-         dNdt * x, dNdt * y];
+    J = [dNds'*x, dNds'*y;
+         dNdt'*x, dNdt'*y];
     detJ = det(J);
 
     % 将形函数导数从 (s,t) 映射到 (x,y)
