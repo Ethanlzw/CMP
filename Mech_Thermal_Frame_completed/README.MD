@@ -26,6 +26,7 @@ K^e u^e = F^e
 Ku = F
 \rightarrow
 
+
 \text{BC}
 \rightarrow
 
