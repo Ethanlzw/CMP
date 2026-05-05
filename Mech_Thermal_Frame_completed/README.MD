@@ -4,7 +4,7 @@
 
 FEM 解题主线：
 
-$$
+```math
 \text{physical problem}
 \rightarrow
 \text{weak form}
@@ -24,7 +24,7 @@ Ku = F
 \text{solution}
 \rightarrow
 \text{postprocess}
-$$
+```
 
 对热力耦合问题，未知量是 displacement 和 temperature，边界也分成位移边界、力边界、温度边界、热流边界。
 
@@ -43,7 +43,7 @@ $$
 
 二维小变形应变：
 
-$$
+```math
 \varepsilon =
 \begin{bmatrix}
 \varepsilon_{xx}\\
@@ -56,23 +56,23 @@ u_{,x}\\
 v_{,y}\\
 u_{,y}+v_{,x}
 \end{bmatrix}
-$$
+```
 
 注意这里用的是 engineering shear strain：
 
-$$
+```math
 \gamma_{xy}=2\varepsilon_{xy}
-$$
+```
 
 材料关系：
 
-$$
+```math
 \sigma = D\varepsilon
-$$
+```
 
 平面应力：
 
-$$
+```math
 D =
 \frac{E}{1-\nu^2}
 \begin{bmatrix}
@@ -80,11 +80,11 @@ D =
 \nu & 1 & 0\\
 0 & 0 & \frac{1-\nu}{2}
 \end{bmatrix}
-$$
+```
 
 平面应变：
 
-$$
+```math
 D =
 \frac{E}{(1+\nu)(1-2\nu)}
 \begin{bmatrix}
@@ -92,67 +92,67 @@ D =
 \nu & 1-\nu & 0\\
 0 & 0 & \frac{1-2\nu}{2}
 \end{bmatrix}
-$$
+```
 
 机械单元刚度：
 
-$$
+```math
 K_{uu}^e=\int_{\Omega_e} B_u^T D B_u \, t\, dA
-$$
+```
 
 机械体力向量：
 
-$$
+```math
 F_u^e=\int_{\Omega_e} N_u^T b \, t\, dA
-$$
+```
 
 边界 traction 向量：
 
-$$
+```math
 F_t^e=\int_{\Gamma_t^e} N_u^T \bar t \, t\, d\Gamma
-$$
+```
 
 ### 2.2 热传导公式
 
 Fourier law：
 
-$$
+```math
 q=-K\nabla T
-$$
+```
 
 稳态热传导单元矩阵：
 
-$$
+```math
 K_{TT}^e=\int_{\Omega_e} B_T^T K B_T \, t\, dA
-$$
+```
 
 体热源向量：
 
-$$
+```math
 F_T^e=\int_{\Omega_e} N_T^T r \, t\, dA
-$$
+```
 
 热流边界向量：
 
-$$
+```math
 F_q^e=\int_{\Gamma_q^e} N_T^T \bar q_n \, t\, d\Gamma
-$$
+```
 
 Robin 边界：
 
-$$
+```math
 K_\Gamma^e=\int_{\Gamma_q^e} N_T^T hN_T \,t\,d\Gamma
-$$
+```
 
-$$
+```math
 F_\Gamma^e=\int_{\Gamma_q^e} N_T^T hT_\infty \,t\,d\Gamma
-$$
+```
 
 ### 2.3 热力耦合公式
 
 热应变：
 
-$$
+```math
 \varepsilon_{th}
 =
 \alpha (T-T_{ref})
@@ -161,17 +161,17 @@ $$
 1\\
 0
 \end{bmatrix}
-$$
+```
 
 热弹性本构：
 
-$$
+```math
 \sigma = D(\varepsilon-\varepsilon_{th})
-$$
+```
 
 单元热力耦合矩阵：
 
-$$
+```math
 K_{uT}^e
 =
 -\int_{\Omega_e}
@@ -184,11 +184,11 @@ B_u^T D
 N_T
 \right)
 t\,dA
-$$
+```
 
 热力耦合单元系统：
 
-$$
+```math
 \begin{bmatrix}
 K_{uu}^e & K_{uT}^e\\
 0 & K_{TT}^e
@@ -202,11 +202,11 @@ d_e\\
 f_u^e\\
 f_T^e
 \end{bmatrix}
-$$
+```
 
 整体系统：
 
-$$
+```math
 \begin{bmatrix}
 K_{uu} & K_{uT}\\
 0 & K_{TT}
@@ -220,9 +220,9 @@ d\\
 f_u\\
 f_T
 \end{bmatrix}
-$$
+```
 
-含义：先由 \(K_{TT}\theta=f_T\) 求温度，再由温度场产生等效热膨胀载荷，进入机械方程。
+含义：先由 $`K_{TT}\theta=f_T`$ 求温度，再由温度场产生等效热膨胀载荷，进入机械方程。
 
 ---
 
@@ -232,13 +232,13 @@ $$
 
 三角形节点：
 
-$$
+```math
 (x_1,y_1),\quad (x_2,y_2),\quad (x_3,y_3)
-$$
+```
 
 面积：
 
-$$
+```math
 A=
 \frac12
 \det
@@ -247,33 +247,33 @@ A=
 1&x_2&y_2\\
 1&x_3&y_3
 \end{bmatrix}
-$$
+```
 
 常用定义：
 
-$$
+```math
 b_1=y_2-y_3,\quad b_2=y_3-y_1,\quad b_3=y_1-y_2
-$$
+```
 
-$$
+```math
 c_1=x_3-x_2,\quad c_2=x_1-x_3,\quad c_3=x_2-x_1
-$$
+```
 
 形函数导数：
 
-$$
+```math
 N_{i,x}=\frac{b_i}{2A}
-$$
+```
 
-$$
+```math
 N_{i,y}=\frac{c_i}{2A}
-$$
+```
 
-Tri3 是常应变单元，所以 \(B\) 在单元内部是常数。
+Tri3 是常应变单元，所以 $`B`$ 在单元内部是常数。
 
-### 3.2 Tri3 机械 \(B_u\)
+### 3.2 Tri3 机械 $`B_u`$
 
-$$
+```math
 B_u=
 \frac{1}{2A}
 \begin{bmatrix}
@@ -281,68 +281,68 @@ b_1&0&b_2&0&b_3&0\\
 0&c_1&0&c_2&0&c_3\\
 c_1&b_1&c_2&b_2&c_3&b_3
 \end{bmatrix}
-$$
+```
 
 机械刚度：
 
-$$
+```math
 K_{uu}^e=B_u^TDB_u\,tA
-$$
+```
 
 体力：
 
-$$
+```math
 F_u^e=
 \frac{tA}{3}
 \begin{bmatrix}
 b_x\\b_y\\b_x\\b_y\\b_x\\b_y
 \end{bmatrix}
-$$
+```
 
-### 3.3 Tri3 热学 \(B_T\)
+### 3.3 Tri3 热学 $`B_T`$
 
-$$
+```math
 B_T=
 \frac{1}{2A}
 \begin{bmatrix}
 b_1&b_2&b_3\\
 c_1&c_2&c_3
 \end{bmatrix}
-$$
+```
 
 热刚度：
 
-$$
+```math
 K_{TT}^e=B_T^T K B_T\,tA
-$$
+```
 
 体热源：
 
-$$
+```math
 F_T^e=
 \frac{r\,tA}{3}
 \begin{bmatrix}
 1\\1\\1
 \end{bmatrix}
-$$
+```
 
 ### 3.4 Tri3 热力耦合
 
 如果温度也用同一个 Tri3 形函数：
 
-$$
+```math
 T=N_T\theta_e
-$$
+```
 
 其中：
 
-$$
+```math
 N_T=\begin{bmatrix}N_1&N_2&N_3\end{bmatrix}
-$$
+```
 
 则：
 
-$$
+```math
 K_{uT}^e
 =
 -\int_{\Omega_e}
@@ -354,15 +354,15 @@ B_u^TD
 \end{bmatrix}
 N_T
 \right)t\,dA
-$$
+```
 
-Tri3 里 \(B_u\) 常数，若用 centroid 积分：
+Tri3 里 $`B_u`$ 常数，若用 centroid 积分：
 
-$$
+```math
 N_1=N_2=N_3=\frac13
-$$
+```
 
-$$
+```math
 K_{uT}^e
 \approx
 -B_u^T D
@@ -375,7 +375,7 @@ K_{uT}^e
 \frac13&\frac13&\frac13
 \end{bmatrix}
 \right)tA
-$$
+```
 
 ---
 
@@ -385,46 +385,46 @@ $$
 
 自然坐标：
 
-$$
+```math
 (s,t)\in[-1,1]\times[-1,1]
-$$
+```
 
 标准节点顺序：
 
-1. \((-1,-1)\)
-2. \((1,-1)\)
-3. \((1,1)\)
-4. \((-1,1)\)
+1. $`(-1,-1)`$
+2. $`(1,-1)`$
+3. $`(1,1)`$
+4. $`(-1,1)`$
 
 形函数：
 
-$$
+```math
 N_1=\frac14(1-s)(1-t)
-$$
+```
 
-$$
+```math
 N_2=\frac14(1+s)(1-t)
-$$
+```
 
-$$
+```math
 N_3=\frac14(1+s)(1+t)
-$$
+```
 
-$$
+```math
 N_4=\frac14(1-s)(1+t)
-$$
+```
 
 ### 4.2 Q4 Jacobian
 
 几何映射：
 
-$$
+```math
 x=\sum_{i=1}^4N_ix_i
-$$
+```
 
-$$
+```math
 y=\sum_{i=1}^4N_iy_i
-$$
+```
 
 代码中若定义：
 
@@ -443,17 +443,17 @@ coords = [x1 y1;
 
 则：
 
-$$
+```math
 J=
 \begin{bmatrix}
 x_{,s} & y_{,s}\\
 x_{,t} & y_{,t}
 \end{bmatrix}
-$$
+```
 
 导数变换：
 
-$$
+```math
 \begin{bmatrix}
 N_{,x}\\
 N_{,y}
@@ -464,7 +464,7 @@ J^{-1}
 N_{,s}\\
 N_{,t}
 \end{bmatrix}
-$$
+```
 
 代码中应写：
 
@@ -476,60 +476,60 @@ dNdy = gradN(2,:)';
 
 `J \ rhs` 和 `inv(J)*rhs` 数学上等价，但代码里推荐 `J \ rhs`，数值更稳定。
 
-### 4.3 Q4 机械 \(B_u\)
+### 4.3 Q4 机械 $`B_u`$
 
-$$
+```math
 B_u=
 \begin{bmatrix}
 N_{1,x}&0&N_{2,x}&0&N_{3,x}&0&N_{4,x}&0\\
 0&N_{1,y}&0&N_{2,y}&0&N_{3,y}&0&N_{4,y}\\
 N_{1,y}&N_{1,x}&N_{2,y}&N_{2,x}&N_{3,y}&N_{3,x}&N_{4,y}&N_{4,x}
 \end{bmatrix}
-$$
+```
 
 Q4 热梯度矩阵：
 
-$$
+```math
 B_T=
 \begin{bmatrix}
 N_{1,x}&N_{2,x}&N_{3,x}&N_{4,x}\\
 N_{1,y}&N_{2,y}&N_{3,y}&N_{4,y}
 \end{bmatrix}
-$$
+```
 
 ### 4.4 Q4 高斯积分
 
-标准 \(2\times2\) Gauss 点：
+标准 $`2\times2`$ Gauss 点：
 
-$$
+```math
 s,t=\pm\frac1{\sqrt3}
-$$
+```
 
 权重：
 
-$$
+```math
 w=1
-$$
+```
 
 Q4 机械刚度：
 
-$$
+```math
 K_{uu}^e=
 \sum_{g=1}^4
 B_{u,g}^TDB_{u,g}\det(J_g)w_g t
-$$
+```
 
 Q4 热刚度：
 
-$$
+```math
 K_{TT}^e=
 \sum_{g=1}^4
 B_{T,g}^T K B_{T,g}\det(J_g)w_g t
-$$
+```
 
 Q4 热力耦合：
 
-$$
+```math
 K_{uT}^e
 =
 -\sum_{g=1}^4
@@ -542,7 +542,7 @@ B_{u,g}^TD
 N_{T,g}
 \right)
 \det(J_g)w_g t
-$$
+```
 
 因为 Q4 的导数在单元内变化，所以需要数值积分。
 
@@ -580,12 +580,12 @@ $$
 
 | 脚本 | 主要输出 |
 |---|---|
-| `Tri3_Mech.m` | `Ke`, `Fe`，尺寸 \(6\times6\), \(6\times1\) |
-| `Quad4_Mech.m` | `Ke`, `Fe`，尺寸 \(8\times8\), \(8\times1\) |
-| `Tri3_Thermal.m` | `Ke`, `Fe`，尺寸 \(3\times3\), \(3\times1\) |
-| `Quad4_Thermal.m` | `Ke`, `Fe`，尺寸 \(4\times4\), \(4\times1\) |
-| `Tri3_ThermoMech.m` | block matrix，尺寸 \(9\times9\) |
-| `Quad4_ThermoMech.m` | block matrix，尺寸 \(12\times12\) |
+| `Tri3_Mech.m` | `Ke`, `Fe`，尺寸 $`6\times6`$, $`6\times1`$ |
+| `Quad4_Mech.m` | `Ke`, `Fe`，尺寸 $`8\times8`$, $`8\times1`$ |
+| `Tri3_Thermal.m` | `Ke`, `Fe`，尺寸 $`3\times3`$, $`3\times1`$ |
+| `Quad4_Thermal.m` | `Ke`, `Fe`，尺寸 $`4\times4`$, $`4\times1`$ |
+| `Tri3_ThermoMech.m` | block matrix，尺寸 $`9\times9`$ |
+| `Quad4_ThermoMech.m` | block matrix，尺寸 $`12\times12`$ |
 
 ---
 
@@ -860,55 +860,55 @@ ux, uy, T
 
 1. 写主变量插值：
 
-$$
+```math
 u=N_u d_e
-$$
+```
 
 或：
 
-$$
+```math
 T=N_T\theta_e
-$$
+```
 
 2. 求导得到：
 
-$$
+```math
 \varepsilon=B_ud_e
-$$
+```
 
 或：
 
-$$
+```math
 \nabla T=B_T\theta_e
-$$
+```
 
 3. 代入材料关系：
 
-$$
+```math
 \sigma=D\varepsilon
-$$
+```
 
-$$
+```math
 q=-K\nabla T
-$$
+```
 
 4. 代入弱形式。
 
 5. 得到：
 
-$$
+```math
 K_{uu}^e=\int B_u^TDB_u\,t\,dA
-$$
+```
 
-$$
+```math
 K_{TT}^e=\int B_T^TKB_T\,t\,dA
-$$
+```
 
 6. 若是 Q4，转换到自然坐标并用 Gauss 积分：
 
-$$
+```math
 dA=\det(J)\,dsdt
-$$
+```
 
 7. 写最终矩阵或代码求和形式。
 
@@ -968,13 +968,13 @@ heatFlux = -K * gradT;
 
 给线性位移场：
 
-$$
+```math
 u=a_0+a_1x+a_2y
-$$
+```
 
-$$
+```math
 v=b_0+b_1x+b_2y
-$$
+```
 
 应变应为常数。Tri3 和 Q4 都应能给出常应变。
 
@@ -982,24 +982,24 @@ $$
 
 给线性温度场：
 
-$$
+```math
 T=a+bx+cy
-$$
+```
 
 温度梯度：
 
-$$
+```math
 \nabla T=
 \begin{bmatrix}
 b\\c
 \end{bmatrix}
-$$
+```
 
 热流：
 
-$$
+```math
 q=-K\nabla T
-$$
+```
 
 应为常数。
 
@@ -1007,15 +1007,15 @@ $$
 
 若没有机械约束，均匀升温：
 
-$$
+```math
 T-T_{ref}=\Delta T
-$$
+```
 
 自由热膨胀时应力应为零：
 
-$$
+```math
 \sigma=0
-$$
+```
 
 这是 thermomechanical 最重要验证之一。
 
@@ -1023,23 +1023,23 @@ $$
 
 若完全约束位移：
 
-$$
+```math
 \varepsilon=0
-$$
+```
 
 则：
 
-$$
+```math
 \sigma=-D\varepsilon_{th}
-$$
+```
 
 平面应力下：
 
-$$
+```math
 \sigma_{xx}=\sigma_{yy}
 =
 -\frac{E\alpha\Delta T}{1-\nu}
-$$
+```
 
 ---
 
@@ -1110,20 +1110,20 @@ model.essBC = {
 4. Study 选 Stationary。
 5. Geometry 建矩形。
 6. Materials：
-   1. \(E\)
-   2. \(\nu\)
-   3. \(\alpha\)
-   4. \(k\)
+   1. $`E`$
+   2. $`\nu`$
+   3. $`\alpha`$
+   4. $`k`$
    5. density 如果 stationary 可不作为主参数
 7. Solid Mechanics：
    1. 左边固定或指定 displacement
    2. 右边施加 boundary load / traction
 8. Heat Transfer：
-   1. 左边温度 \(T_{hot}\)
-   2. 右边温度 \(T_{cold}\)
+   1. 左边温度 $`T_{hot}`$
+   2. 右边温度 $`T_{cold}`$
    3. 其他边默认 insulation
 9. Multiphysics：
-   1. Thermal Expansion 中设置 \(T_{ref}\)
+   1. Thermal Expansion 中设置 $`T_{ref}`$
 10. Mesh：
     1. 用 Free Triangular 或 Mapped Quad
     2. 若要和 MATLAB Q4 对比，尽量用 structured quadrilateral mesh
@@ -1138,9 +1138,9 @@ model.essBC = {
 
 要统一：
 
-$$
+```math
 E,\nu,\alpha,k,t,T_{ref}
-$$
+```
 
 还要统一：
 
@@ -1167,13 +1167,13 @@ $$
    2. Heat Transfer in Solids
    3. Thermal Expansion
 4. Material 输入：
-   1. \(E\)
-   2. \(\nu\)
-   3. \(\alpha\)
-   4. \(k\)
+   1. $`E`$
+   2. $`\nu`$
+   3. $`\alpha`$
+   4. $`k`$
 5. Heat Transfer：
-   1. 一侧给 \(T_{hot}\)
-   2. 另一侧给 \(T_{cold}\)
+   1. 一侧给 $`T_{hot}`$
+   2. 另一侧给 $`T_{cold}`$
    3. 其他面 insulation
 6. Solid Mechanics：
    1. 一端 fixed constraint
@@ -1193,22 +1193,22 @@ $$
 
 3D 中应变有 6 个分量：
 
-$$
+```math
 \varepsilon =
 [\varepsilon_{xx},\varepsilon_{yy},\varepsilon_{zz},
 \gamma_{xy},\gamma_{yz},\gamma_{xz}]^T
-$$
+```
 
 热应变：
 
-$$
+```math
 \varepsilon_{th}
 =
 \alpha(T-T_{ref})
 [1,1,1,0,0,0]^T
-$$
+```
 
-所以 3D 不能直接拿 2D 的 \(D\) 和 \([1,1,0]^T\) 套进去。
+所以 3D 不能直接拿 2D 的 $`D`$ 和 $`[1,1,0]^T`$ 套进去。
 
 ---
 
@@ -1218,23 +1218,23 @@ $$
 
 Tri3 必须保持逆时针。若面积：
 
-$$
+```math
 A\le 0
-$$
+```
 
 说明节点顺序反了。
 
 Q4 标准顺序：
 
-$$
+```math
 1\rightarrow2\rightarrow3\rightarrow4
-$$
+```
 
 必须绕单元一圈，通常逆时针。若：
 
-$$
+```math
 \det J \le 0
-$$
+```
 
 说明节点顺序或单元形状有问题。
 
@@ -1266,7 +1266,7 @@ gradN = J \ [dNds'; dNdt'];
 gradN = [dNds'; dNdt'] / J;
 ```
 
-也不要在没有确认 \(J\) 定义的情况下随便转置。
+也不要在没有确认 $`J`$ 定义的情况下随便转置。
 
 ### 11.3 `model.fieldNames` 顺序
 
@@ -1310,8 +1310,8 @@ Tri3_Mech + Quad4_Thermal
 
 2D 弹性至少要消除：
 
-1. \(x\) 平移
-2. \(y\) 平移
+1. $`x`$ 平移
+2. $`y`$ 平移
 3. 平面转动
 
 典型错误：
@@ -1324,33 +1324,33 @@ Warning: Matrix is singular
 
 热应变进入机械方程时：
 
-$$
+```math
 \sigma=D(\varepsilon-\varepsilon_{th})
-$$
+```
 
 所以耦合项是负号：
 
-$$
+```math
 K_{uT}^e
 =
 -\int B_u^T D\alpha m N_T\,d\Omega
-$$
+```
 
 漏掉负号，热膨胀方向会反。
 
-### 11.7 \(T_{ref}\) 不能忽略
+### 11.7 $`T_{ref}`$ 不能忽略
 
 热应变依赖：
 
-$$
+```math
 T-T_{ref}
-$$
+```
 
-如果代码直接用 \(T\)，默认就是：
+如果代码直接用 $`T`$，默认就是：
 
-$$
+```math
 T_{ref}=0
-$$
+```
 
 若 COMSOL 中 reference temperature 默认不是 0，对比会错。
 
@@ -1364,17 +1364,17 @@ $$
 
 ### 11.9 工程剪应变和张量剪应变混淆
 
-代码里的 \(B\) 第三行一般对应：
+代码里的 $`B`$ 第三行一般对应：
 
-$$
+```math
 \gamma_{xy}=u_{,y}+v_{,x}
-$$
+```
 
 所以材料矩阵第三项用：
 
-$$
+```math
 G=\frac{E}{2(1+\nu)}
-$$
+```
 
 不要再乘或除 2。
 
@@ -1384,16 +1384,16 @@ $$
 
 ### 12.1 Tri3
 
-$$
+```math
 A=\frac12\det
 \begin{bmatrix}
 1&x_1&y_1\\
 1&x_2&y_2\\
 1&x_3&y_3
 \end{bmatrix}
-$$
+```
 
-$$
+```math
 B=
 \frac1{2A}
 \begin{bmatrix}
@@ -1401,43 +1401,43 @@ b_1&0&b_2&0&b_3&0\\
 0&c_1&0&c_2&0&c_3\\
 c_1&b_1&c_2&b_2&c_3&b_3
 \end{bmatrix}
-$$
+```
 
-$$
+```math
 K^e=B^TDB\,tA
-$$
+```
 
 ### 12.2 Q4
 
-$$
+```math
 N_1=\frac14(1-s)(1-t),\quad
 N_2=\frac14(1+s)(1-t)
-$$
+```
 
-$$
+```math
 N_3=\frac14(1+s)(1+t),\quad
 N_4=\frac14(1-s)(1+t)
-$$
+```
 
-$$
+```math
 J=[N_{,s};N_{,t}]\,coords
-$$
+```
 
-$$
+```math
 [N_{,x};N_{,y}]=J^{-1}[N_{,s};N_{,t}]
-$$
+```
 
-$$
+```math
 K^e=\sum_{g=1}^4B_g^TDB_g\det(J_g)t
-$$
+```
 
 ### 12.3 Thermomechanical
 
-$$
+```math
 \sigma=D(\varepsilon-\alpha(T-T_{ref})[1,1,0]^T)
-$$
+```
 
-$$
+```math
 \begin{bmatrix}
 K_{uu}&K_{uT}\\
 0&K_{TT}
@@ -1449,11 +1449,11 @@ d\\\theta
 \begin{bmatrix}
 f_u\\f_T
 \end{bmatrix}
-$$
+```
 
 ### 12.4 代码主线
 
-$$
+```math
 main
 \rightarrow
 buildBCData
@@ -1467,7 +1467,7 @@ element
 solveSystem
 \rightarrow
 postprocess
-$$
+```
 
 代码框架可以压缩为：
 
