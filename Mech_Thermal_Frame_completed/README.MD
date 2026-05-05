@@ -4,31 +4,26 @@
 
 FEM 解题主线：
 
+
 ```math
 \text{physical problem}
 \rightarrow
 \text{weak form}
-\rightarrow 
+\rightarrow
 u \approx Nu_e
 \rightarrow
 \varepsilon = Bu_e
 \rightarrow
 \sigma = D\varepsilon
-\rightarrow  
-
+\rightarrow
 K^e u^e = F^e
-\rightarrow  
-
+\rightarrow
 Ku = F
 \rightarrow
-
-
 \text{BC}
 \rightarrow
-
 \text{solution}
 \rightarrow
-
 \text{postprocess}
 ```
 
