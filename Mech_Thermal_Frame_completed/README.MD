@@ -1096,7 +1096,7 @@ model.essBC = {
 
 ---
 
-## 9. Pei COMSOL thermomechanical 2D case
+## 9. COMSOL thermomechanical 2D case
 
 ### 9.1 COMSOL 建模步骤
 
