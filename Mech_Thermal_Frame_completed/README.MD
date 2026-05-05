@@ -21,7 +21,7 @@ u \approx Nu_e
 \rightarrow
 
 K^e u^e = F^e
-\rightarrow
+\rightarrow  
 
 Ku = F
 \rightarrow
