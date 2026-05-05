@@ -3,8 +3,6 @@
 ## 1. 考试总逻辑
 
 FEM 解题主线：
-
-
 ```math
 \text{physical problem}
 \rightarrow
