@@ -6,9 +6,9 @@ FEM 解题主线：
 
 ```math
 \text{physical problem}
-\rightarro
-\text{weak form}
 \rightarrow
+\text{weak form}
+\rightarrow 
 u \approx Nu_e
 \rightarrow
 \varepsilon = Bu_e
