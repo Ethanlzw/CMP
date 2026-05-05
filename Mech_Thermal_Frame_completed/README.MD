@@ -6,19 +6,15 @@ FEM 解题主线：
 
 ```math
 \text{physical problem}
-\rightarrow
-
+\rightarro
 \text{weak form}
 \rightarrow
-
 u \approx Nu_e
 \rightarrow
-
 \varepsilon = Bu_e
 \rightarrow
-
 \sigma = D\varepsilon
-\rightarrow
+\rightarrow  
 
 K^e u^e = F^e
 \rightarrow  
