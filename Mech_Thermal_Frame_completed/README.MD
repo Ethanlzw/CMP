@@ -7,22 +7,31 @@ FEM 解题主线：
 ```math
 \text{physical problem}
 \rightarrow
+
 \text{weak form}
 \rightarrow
+
 u \approx Nu_e
 \rightarrow
+
 \varepsilon = Bu_e
 \rightarrow
+
 \sigma = D\varepsilon
 \rightarrow
+
 K^e u^e = F^e
 \rightarrow
+
 Ku = F
 \rightarrow
+
 \text{BC}
 \rightarrow
+
 \text{solution}
 \rightarrow
+
 \text{postprocess}
 ```
 
